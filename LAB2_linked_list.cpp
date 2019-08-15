@@ -23,21 +23,23 @@ void AddFirst(Node** head_ref,long long int x1,long long int y1){
     return;
 }
 
-int DelFirst(Node** head_ref){
+void DelFirst(Node** head_ref){
     struct Node* temp= *head_ref;
-    if(temp==NULL)
-        return -1;
+    if(temp==NULL){
+        cout<< -1;
+        return;
+    }
 
     else{
 
         *head_ref= temp->next;
         free(temp);
-        return 0;
+        return;
     }
     
 }
 
-int Del(Node** head_ref, long long int x1, long long int y1){
+void Del(Node** head_ref, long long int x1, long long int y1){
     struct Node* temp= *head_ref;
     struct Node* prev;
 
@@ -46,12 +48,12 @@ int Del(Node** head_ref, long long int x1, long long int y1){
             if(temp==*head_ref){
                 *head_ref=temp->next;
                 free(temp);
-                return 0;
+                return;
             }
             else{
                 prev->next= temp->next;
                 free(temp);
-                return 0;
+                return;
             }
         }
 
@@ -63,20 +65,25 @@ int Del(Node** head_ref, long long int x1, long long int y1){
 
     }
 
-    return -1;
+    cout<< -1;
 }
 
 void Search1(Node** head_ref, long double d){
     struct Node* temp= *head_ref;
+    int count=0;
 
     while(temp!=NULL){
         if(sqrt(pow(temp->p.x, 2)+pow(temp->p.y, 2))<= d)
-            cout<<"("<<temp->p.x<<","<<temp->p.y<<") ";
+            count++;
 
         temp=temp->next;
     }
-
-    return;
+    
+    if(count!=0)
+    	cout<< count;
+    	
+    else 
+	cout << -1;
 }
 
 void Search2(Node** head_ref, long long int x1, long long int y1){
@@ -127,14 +134,14 @@ int main(){
                 break;
 
             case 2:
-                cout<<DelFirst(&head_ref);
+                DelFirst(&head_ref);
                 break;
 
             case 3:
                 long long int a,b;
                 cin>>a;
                 cin>>b;
-                cout<<Del(&head_ref,a,b);
+                Del(&head_ref,a,b);
                 break;
 
             case 4:
