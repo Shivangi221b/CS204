@@ -98,15 +98,15 @@ et* newNode(string val)
 et * createTree(string pf){
 	stack<et *> st;
 	et *t, *t1, *t2;
-	string x;
+	string x="";
 
 	for(int i=0; i<pf.length(); i++)
 	{
 
 		if (pf[i]!=' ' && pf[i]!='+' && pf[i]!='-' && pf[i]!='*' && pf[i]!='/' && pf[i]!='^')
-			x=x+pf[i];
+			x.push_back(pf[i]);
 
-		if(pf[i]==' ' && pf[i-1]!='+' && pf[i-1]!='-' && pf[i-1]!='*' && pf[i-1]!='/' && pf[i-1]!='^')
+		if(pf[i]==' ' || pf[i]=='+' || pf[i]=='-' ||pf[i]=='*' || pf[i]=='/' || pf[i]=='^'/* && pf[i-1]!='+' && pf[i-1]!='-' && pf[i-1]!='*' && pf[i-1]!='/' && pf[i-1]!='^'*/)
 		{
 			t=newNode(x); 			
            	st.push(t);
@@ -179,8 +179,7 @@ int main(){
 		for(int j=0; j<d; j++){
 			string str;
 			cin>> str;
-			string pf= infixToPostfix(str);
-			createTree(pf);
+			cout<<evaluate(createTree(infixToPostfix(str)));
 		}
 	}
 	
