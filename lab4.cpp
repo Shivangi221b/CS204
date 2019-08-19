@@ -104,13 +104,27 @@ et * createTree(string pf){
 	{
 
 		if (pf[i]!=' ' && pf[i]!='+' && pf[i]!='-' && pf[i]!='*' && pf[i]!='/' && pf[i]!='^')
-			x.push_back(pf[i]);
-
-		if(pf[i]==' ' || pf[i]=='+' || pf[i]=='-' ||pf[i]=='*' || pf[i]=='/' || pf[i]=='^'/* && pf[i-1]!='+' && pf[i-1]!='-' && pf[i-1]!='*' && pf[i-1]!='/' && pf[i-1]!='^'*/)
 		{
-			t=newNode(x); 			
-           	st.push(t);
-           	x="";
+			x=x+pf[i];
+			
+		}
+
+		if(pf[i]==' ' || pf[i]=='+' || pf[i]=='-' || pf[i]=='*' || pf[i]=='/' || pf[i]=='^' /*&& pf[i-1]!='+' && pf[i-1]!='-' && pf[i-1]!='*' && pf[i-1]!='/' && pf[i-1]!='^' && pf[i-1]!=' '*/)
+		{
+			if(i==0)
+			{
+				t=newNode(x); 
+               
+           		st.push(t);
+           		x="";
+           	}
+           	else if(pf[i-1]!='+' && pf[i-1]!='-' && pf[i-1]!='*' && pf[i-1]!='/' && pf[i-1]!='^' && pf[i-1]!=' ')
+           	{
+           		t=newNode(x); 
+
+           		st.push(t);
+           		x="";
+           	}
 		}
 
 		if(isOperator(pf[i])==1)
@@ -142,7 +156,10 @@ int sToInt(string s){
 	int num=0;
 
 	for(int i=0; i<s.length(); i++)
-		return (num*10+(int(s[i])-48));
+		num= num*10+(int(s[i])-48);
+
+return num;
+	
 
 }
 
@@ -158,7 +175,7 @@ int evaluate(et * root)
     int r = evaluate(root->right);
 
     if (root->value=="+")  
-        return l + r;  
+        return l+r;  
   
     if (root->value=="-")  
         return l-r;  
@@ -166,7 +183,7 @@ int evaluate(et * root)
     if (root->value=="*")  
         return l*r;
     if (root->value=="/")  
-        return l/r;
+        return (int)l/r;
     if (root->value=="^")
     	return (int)pow(l,r);
 }
