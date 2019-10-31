@@ -59,7 +59,7 @@ int main()
     for(int i=0; i<m; i++){
     	cin>>x;
     	cin>>y;
-    	graph[x][y]=1;
+    	graph[x-1][y-1]=1;
     }
 
     isBipartite(graph, n) ? cout << "Yes" : cout << "No";
