@@ -86,32 +86,41 @@ void deleteNod(TreapNod* &root, int key) {
       }
    }
 }
-void displayTreap(TreapNod *root, int space = 0, int height =10) { //display treap
-   if (root == nullptr)
-      return;
-   space += height;
-   displayTreap(root->l, space);
-   cout << endl;
-   for (int i = height; i < space; i++)
-      cout << ' ';
-      cout << root->data << "(" << root->priority << ")\n";
-      cout << endl;
-   displayTreap(root->r, space);
-}
+
+void inorder(TreapNod* root) 
+{ 
+    if (root) 
+    { 
+        inorder(root->l); 
+        cout << "key: "<< root->data << " , priority: "
+            << root->priority; 
+        if (root->l) 
+            cout << " , left child: " << root->l->data; 
+        if (root->r) 
+            cout << " , right child: " << root->r->data; 
+        cout << endl; 
+        inorder(root->r); 
+    } 
+} 
+
 int main() {
    int nums[] = {1,7,6,4,3,2,8,9,10 };
    int a = sizeof(nums)/sizeof(int);
    TreapNod* root = nullptr;
    srand(time(nullptr));
+
    for (int n: nums)
       insertNod(root, n);
+
    cout << "Constructed Treap:\n\n";
-   displayTreap(root);
+   inorder(root);
+
    cout << "\nDeleting node 8:\n\n";
    deleteNod(root, 8);
-   displayTreap(root);
+   inorder(root);
+
    cout << "\nDeleting node 3:\n\n";
    deleteNod(root, 3);
-   displayTreap(root);
+   inorder(root);
    return 0;
 }
